@@ -52,10 +52,10 @@ fun EdicionLibroScreen(
                         val editado = libro.copy(
                             titulo = t,
                             autor = a,
-                            anioPublicacion = anioInt, // Ahora es Int
+                            anioPublicacion = anioInt,
                             genero = g,
                             editorial = e,
-                            paginas = paginasInt,      // Ahora es Int
+                            paginas = paginasInt,
                             disponible = d
                         )
 

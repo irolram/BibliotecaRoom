@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
+// Composable para el formulario de edición de un libro
 @Composable
 fun FormularioLibro(
     tituloInicial: String = "",
@@ -22,7 +23,7 @@ fun FormularioLibro(
     textoBoton: String,
     onGuardarClick: (String, String, Int, String, String, Int, Boolean) -> Unit
 ) {
-    // IMPORTANTE: Al añadir (tituloInicial, etc.) como clave,
+    // Al añadir (tituloInicial, etc.) como clave,
     // si el libro tarda 1 segundo en cargar, el campo se actualizará solo.
     var titulo by remember(tituloInicial) { mutableStateOf(tituloInicial) }
     var autor by remember(autorInicial) { mutableStateOf(autorInicial) }

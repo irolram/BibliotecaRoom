@@ -6,9 +6,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+// Clase que implementa la interfaz IBibliotecaRepository
 class BibliotecaRepositoryImpl @Inject constructor(
     private val libroDao: LibroDao
 ) : IBibliotecaRepository {
+    // Implementamos los métodos de la interfaz
+
 
     override fun obtenerTodosLosLibros(): Flow<List<Libro>> {
         return libroDao.obtenerTodos().map { lista ->
@@ -37,6 +40,6 @@ class BibliotecaRepositoryImpl @Inject constructor(
         return true
     }
 }
-
+// Extensiones para mapear entre Libro y LibroEntity
 fun LibroEntity.toDomain() = Libro(id, titulo, autor, genero, anioPublicacion, editorial, paginas, disponible)
 fun Libro.toEntity() = LibroEntity(id, titulo, autor, genero, anioPublicacion, editorial, paginas, disponible)

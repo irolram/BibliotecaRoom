@@ -9,6 +9,7 @@ import androidx.room.Update
 import com.example.bibliotecaroom.domain.model.LibroEntity
 import kotlinx.coroutines.flow.Flow
 
+//Interfaz para el DAO (Data Access Object)
 @Dao
 interface LibroDao {
     @Query("SELECT * FROM libros")

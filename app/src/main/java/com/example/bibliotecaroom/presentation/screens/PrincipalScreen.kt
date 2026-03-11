@@ -41,6 +41,7 @@ import com.example.bibliotecaroom.domain.model.Pantalla
 import com.example.bibliotecaroom.presentation.components.ItemLibro
 import com.example.bibliotecaroom.presentation.viewModel.LibroViewModel
 
+// Composable para la pantalla principal
 @Composable
 fun PantallaPrincipal(onNavigate: (String) -> Unit) {
     Column(
@@ -80,108 +81,3 @@ fun PantallaPrincipal(onNavigate: (String) -> Unit) {
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ObtenerTodosLosLibrosScreen(
-    viewModel: LibroViewModel,
-    onBackClick: () -> Unit,
-    onNavigate: (String) -> Unit
-) {
-    val libros by viewModel.librosFlow.collectAsState(initial = emptyList())
-
-    var textoBusqueda by remember { mutableStateOf("") }
-
-
-    val librosFiltrados = remember(textoBusqueda, libros) {
-        if (textoBusqueda.isEmpty()) {
-            libros
-        } else {
-            val idBuscado = textoBusqueda.toIntOrNull()
-            if (idBuscado != null) {
-                libros.filter { it.id == idBuscado }
-            } else {
-                libros
-            }
-        }
-    }
-
-    var mostrarDialogoBorrado by remember { mutableStateOf(false) }
-    var libroABorrar by remember { mutableStateOf<Libro?>(null) }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("Listado de Libros") })
-        }
-    ) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
-
-            // --- BUSCADOR POR ID ---
-            OutlinedTextField(
-                value = textoBusqueda,
-                onValueChange = { textoBusqueda = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                label = { Text("Buscar por ID de libro") },
-                placeholder = { Text("Ej: 5") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true,
-                shape = MaterialTheme.shapes.medium
-            )
-
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                items(items = librosFiltrados, key = { it.id }) { libro ->
-                    ItemLibro(
-                        libro = libro,
-                        onVerDetalle = {
-                            viewModel.libroSeleccionado = libro
-                            onNavigate(Pantalla.GetById.route)
-                        },
-                        onEditar = {
-                            viewModel.libroSeleccionado = libro
-                            onNavigate(Pantalla.Update.route)
-                        },
-                        onBorrar = {
-                            libroABorrar = libro
-                            mostrarDialogoBorrado = true
-                        }
-                    )
-                }
-
-                if (librosFiltrados.isEmpty() && textoBusqueda.isNotEmpty()) {
-                    item {
-                        Text(
-                            "No se encontró ningún libro con el ID $textoBusqueda",
-                            modifier = Modifier.padding(16.dp),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.error
-                        )
-                    }
-                }
-            }
-        }
-
-        // Diálogo de confirmación (se mantiene igual)
-        if (mostrarDialogoBorrado) {
-            AlertDialog(
-                onDismissRequest = { mostrarDialogoBorrado = false },
-                title = { Text("¿Eliminar libro?") },
-                text = { Text("¿Estás seguro de eliminar '${libroABorrar?.titulo}'?") },
-                confirmButton = {
-                    Button(
-                        onClick = {
-                            libroABorrar?.let { viewModel.eliminarLibro(it) }
-                            mostrarDialogoBorrado = false
-                        },
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-                    ) { Text("Eliminar") }
-                },
-                dismissButton = {
-                    TextButton(onClick = { mostrarDialogoBorrado = false }) { Text("Cancelar") }
-                }
-            )
-        }
-    }
-}

@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+// ViewModel para la lógica de la aplicación
 @HiltViewModel
 class LibroViewModel @Inject constructor(
     private val repository: IBibliotecaRepository,
@@ -28,10 +29,7 @@ class LibroViewModel @Inject constructor(
     // Estado para mostrar errores en la UI (Toasts o mensajes)
     var mensajeError by mutableStateOf<String?>(null)
 
-    /**
-     * UNIFICADO: Esta es la función que debes llamar desde AltaLibroScreen.
-     * Ahora incluye un callback 'onExito' para que la pantalla solo se cierre si es válido.
-     */
+// Función para guardar un nuevo libro
     fun guardarNuevoLibro(
         titulo: String,
         autor: String,
@@ -53,7 +51,7 @@ class LibroViewModel @Inject constructor(
                 disponible = disponible
             )
 
-            // USAMOS EL USE CASE (Aquí es donde el -5 fallará)
+            // Usamos el use case para validar y guardar
             val resultado = insertarLibroUseCase(nuevoLibro)
 
             resultado.onSuccess {

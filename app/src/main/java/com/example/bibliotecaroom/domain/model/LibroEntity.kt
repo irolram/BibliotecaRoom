@@ -3,7 +3,7 @@ package com.example.bibliotecaroom.domain.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-//Data class de la clase Libro
+//Data class de Libro
 @Entity(tableName = "libros")
 data class LibroEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,

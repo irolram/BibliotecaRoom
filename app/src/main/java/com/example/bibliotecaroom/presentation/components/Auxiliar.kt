@@ -14,6 +14,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.bibliotecaroom.domain.model.Libro
 
+// Composable para mostrar un libro
+
 @Composable
 fun ItemLibro(
     libro: Libro,
@@ -90,5 +92,23 @@ fun ItemLibro(
                 }
             }
         }
+    }
+}
+
+// Componente auxiliar para mostrar cada fila de detalle
+
+@Composable
+fun DetalleCampo(label: String, valor: String, isHeader: Boolean = false) {
+    Column(modifier = Modifier.padding(vertical = 4.dp)) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
+        Text(
+            text = valor,
+            style = if (isHeader) MaterialTheme.typography.headlineSmall else MaterialTheme.typography.bodyLarge,
+            fontWeight = if (isHeader) FontWeight.Bold else FontWeight.Normal
+        )
     }
 }

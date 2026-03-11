@@ -9,8 +9,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.bibliotecaroom.presentation.components.DetalleCampo
 import com.example.bibliotecaroom.presentation.viewModel.LibroViewModel
 
+// Composable para la pantalla de detalles de un libro
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetalleLibroScreen(
@@ -92,21 +94,4 @@ fun DetalleLibroScreen(
     }
 }
 
-/**
- * Componente auxiliar para mostrar cada fila de detalle
- */
-@Composable
-fun DetalleCampo(label: String, valor: String, isHeader: Boolean = false) {
-    Column(modifier = Modifier.padding(vertical = 4.dp)) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.primary
-        )
-        Text(
-            text = valor,
-            style = if (isHeader) MaterialTheme.typography.headlineSmall else MaterialTheme.typography.bodyLarge,
-            fontWeight = if (isHeader) FontWeight.Bold else FontWeight.Normal
-        )
-    }
-}
+

@@ -3,6 +3,7 @@ package com.example.bibliotecaroom.data.repository
 import com.example.bibliotecaroom.domain.model.Libro
 import kotlinx.coroutines.flow.Flow
 
+//Interfaz para el repositorio de la biblioteca
 interface IBibliotecaRepository {
 
     fun obtenerLibroPorId(id: Int): Flow<Libro?>

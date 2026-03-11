@@ -15,6 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bibliotecaroom.presentation.components.FormularioLibro
 import com.example.bibliotecaroom.presentation.viewModel.LibroViewModel
 
+// Composable para la pantalla de alta de libro
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AltaLibroScreen(
@@ -50,7 +51,7 @@ fun AltaLibroScreen(
                         editorial = editorial,
                         paginas = paginasInt,
                         disponible = disponible,
-                        onExito = { onVolver() } // <--- EL TRUCO: Solo navega si Success
+                        onExito = { onVolver() }
                     )
                 }
             )
